@@ -6,9 +6,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>Local Forecast</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   </head>
-  <body>
-    <h1>Local Forecast</h1>
+  <body class="blur">
+    <h1 class="headline">Local Weather</h1>
+    <header class="header">
+      <div class="header-left">
+        <img
+          src="/icons/sun.svg"
+          alt="Weather icon"
+          title="Weather icon"
+          id="weather-icon"
+          class="weather-icon weather-icon--large"
+        />
+        <div class="header-current-temp"><span id="current-temp"></span>&deg;</div>
+      </div>
+      <div class="header-right">
+        <div class="info-group">
+          <div class="label">High</div>
+          <div><span id="current-high"></span>&deg;</div>
+        </div>
+        <div class="info-group">
+          <div class="label">
+            Feels like <span class="arrow"><i class="ph-arrow-up-fill"></i></span>
+          </div>
+          <div><span id="feels-like-high"></span>&deg;</div>
+        </div>
+        <div class="info-group">
+          <div class="label">Wind</div>
+          <div><span id="wind"></span><span class="sub-info">mph</span></div>
+        </div>
+        <div class="info-group">
+          <div class="label">Low</div>
+          <div><span id="current-low"></span>&deg;</div>
+        </div>
+        <div class="info-group">
+          <div class="label">
+            Feels like <span class="arrow"><i class="ph-arrow-down-fill"></i></span>
+          </div>
+          <div><span id="feels-like-low"></span>&deg;</div>
+        </div>
+        <div class="info-group">
+          <div class="label">Precipitation</div>
+          <div><span id="precipitation"></span><span class="value-sub-info">in</span></div>
+        </div>
+      </div>
+    </header>
+
+    <section class="ps">
+      <div id="daily" class="daily"></div>
+    </section>
+
+    <table>
+      <tbody id="hour"></tbody>
+    </table>
+
+    <template id="hour-template">
+      <tr class="hour-row">
+        <td>
+          <div class="info-group">
+            <div class="label day"></div>
+            <div class="time"></div>
+          </div>
+        </td>
+        <td>
+          <img class="weather-icon" />
+        </td>
+        <td>
+          <div class="info-group">
+            <div class="label">Temp</div>
+            <div><span class="temp"></span><span>&deg;</span></div>
+          </div>
+        </td>
+        <td>
+          <div class="info-group">
+            <div class="label">Feels</div>
+            <div><span class="feels"></span><span>&deg;</span></div>
+          </div>
+        </td>
+        <td>
+          <div class="info-group">
+            <div class="label">Wind</div>
+            <div><span class="wind"></span><span class="value-sub-info">mph</span></div>
+          </div>
+        </td>
+        <td>
+          <div class="info-group">
+            <div class="label">Precipitation</div>
+            <div><span class="precipitation"></span><span class="value-sub-info">in</span></div>
+          </div>
+        </td>
+      </tr>
+    </template>
     <script type="module" src="main.js"></script>
   </body>
 </html>
