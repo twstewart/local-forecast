@@ -23,36 +23,36 @@
               id="weather-icon"
               class="weather-icon weather-icon--large"
             />
-            <div class="header-current-temp"><span id="current-temp">27</span>&deg;</div>
+            <div class="header-current-temp"><span id="current-temp"></span>&deg;</div>
           </div>
           <div class="header-right">
             <div class="info-group">
               <div class="label">High</div>
-              <div><span id="current-high">35</span>&deg;</div>
+              <div><span id="max-temp"></span>&deg;</div>
             </div>
             <div class="info-group">
               <div class="label">
-                Feels like <span class="arrow"><i class="ph-arrow-up-fill"></i></span>
+                Feels like <span class="arrow"><ion-icon name="arrow-up"></ion-icon></span>
               </div>
-              <div><span id="feels-like-high">32</span>&deg;</div>
+              <div><span id="feels-like-high"></span>&deg;</div>
             </div>
             <div class="info-group">
               <div class="label">Wind</div>
-              <div><span id="wind"></span>10<span class="sub-info">mph</span></div>
+              <div><span id="wind"></span><span class="sub-info">mph</span></div>
             </div>
             <div class="info-group">
               <div class="label">Low</div>
-              <div><span id="current-low">22</span>&deg;</div>
+              <div><span id="min-temp"></span>&deg;</div>
             </div>
             <div class="info-group">
               <div class="label">
-                Feels like <span class="arrow"><i class="ph-arrow-down-fill"></i></span>
+                Feels like <span class="arrow"><ion-icon name="arrow-down"></ion-icon></span>
               </div>
-              <div><span id="feels-like-low">20</span>&deg;</div>
+              <div><span id="feels-like-low"></span>&deg;</div>
             </div>
             <div class="info-group">
               <div class="label">Precipitation</div>
-              <div><span id="precipitation">0.1</span><span class="value-sub-info">in</span></div>
+              <div><span id="precipitation"></span><span class="value-sub-info">in</span></div>
             </div>
           </div>
         </div>
@@ -60,7 +60,9 @@
     </header>
 
     <section class="page-section">
-      <div id="daily" class="daily"></div>
+      <div class="container">
+        <div id="daily" class="daily"></div>
+      </div>
     </section>
 
     <table>
@@ -104,6 +106,7 @@
         </td>
       </tr>
     </template>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script type="module" src="main.js"></script>
   </body>
 </html>

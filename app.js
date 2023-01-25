@@ -1,5 +1,5 @@
 import fetchWeatherData from "./js/forecast";
-import { navigatorGeolocationPromise, setDOMValue, getIconUrl } from "./js/utils";
+import { calcAvg, dayFormatter, getIconUrl, navigatorGeolocationPromise, setDOMValue } from "./js/utils";
 
 navigatorGeolocationPromise()
   .then((position) => {
@@ -39,6 +39,24 @@ function renderCurrentWeather(current) {
   setDOMValue("#precipitation", precipitation);
 }
 
-function renderDailyWeather(daily) {}
+function renderDailyWeather(daily) {
+  const dailyEl = document.querySelector("#daily");
+
+  dailyEl.innerHTML = null;
+
+  const html = daily
+    .map((day) => {
+      return `
+      <div class="daily-card">
+        <img src=${getIconUrl(day.iconCode)} alt="Weather icon" title="Weather icon" class="weather-icon" />
+        <div class="daily-card__day">${dayFormatter(day.timestamp, "long")}</div>
+        <div><span>${Math.round(calcAvg(day.maxTemp, day.minTemp))}</span><span>&deg;<span></div>
+      </div>
+    `;
+    })
+    .join("");
+
+  dailyEl.insertAdjacentHTML("afterbegin", html);
+}
 
 function renderHourlyWeather(hourly) {}
