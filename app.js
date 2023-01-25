@@ -1,5 +1,10 @@
 import fetchWeatherData from "./js/forecast";
-import { calcAvg, dayFormatter, getIconUrl, navigatorGeolocationPromise, setDOMValue } from "./js/utils";
+import { calcAvg, dayFormatter, getIconUrl, hourFormatter, navigatorGeolocationPromise, setDOMValue } from "./js/utils";
+
+const currentIconEl = document.querySelector("#weather-icon");
+const dailyEl = document.querySelector("#daily");
+const hourEl = document.querySelector("#hour");
+const hourTemplate = document.querySelector("#hour-template");
 
 navigatorGeolocationPromise()
   .then((position) => {
@@ -22,10 +27,13 @@ function renderWeather({ current, daily, hourly }) {
   renderCurrentWeather(current);
   renderDailyWeather(daily);
   renderHourlyWeather(hourly);
+
+  setTimeout(() => {
+    document.body.classList.remove("blur");
+  }, 100);
 }
 
 function renderCurrentWeather(current) {
-  const currentIconEl = document.querySelector("#weather-icon");
   const { currentTemp, highFeelsLike, highTemp, iconCode, lowFeelsLike, lowTemp, precipitation, windSpeed } = current;
 
   currentIconEl.src = getIconUrl(iconCode);
@@ -40,8 +48,6 @@ function renderCurrentWeather(current) {
 }
 
 function renderDailyWeather(daily) {
-  const dailyEl = document.querySelector("#daily");
-
   dailyEl.innerHTML = null;
 
   const html = daily
@@ -49,7 +55,7 @@ function renderDailyWeather(daily) {
       return `
       <div class="daily-card">
         <img src=${getIconUrl(day.iconCode)} alt="Weather icon" title="Weather icon" class="weather-icon" />
-        <div class="daily-card__day">${dayFormatter(day.timestamp, "long")}</div>
+        <div class="daily-card__day">${dayFormatter(day.timestamp)}</div>
         <div><span>${Math.round(calcAvg(day.maxTemp, day.minTemp))}</span><span>&deg;<span></div>
       </div>
     `;
@@ -59,4 +65,21 @@ function renderDailyWeather(daily) {
   dailyEl.insertAdjacentHTML("afterbegin", html);
 }
 
-function renderHourlyWeather(hourly) {}
+function renderHourlyWeather(hourly) {
+  hourEl.innerHTML = null;
+
+  for (const [i, hour] of hourly.entries()) {
+    if (i > 23) break;
+
+    const hourRowEl = hourTemplate.content.cloneNode(true).children[0];
+    setDOMValue(".day", dayFormatter(hour.timestamp, "short"), { parent: hourRowEl });
+    setDOMValue(".time", `${hourFormatter(hour.timestamp)}`, { parent: hourRowEl });
+    setDOMValue(".temp", hour.temp, { parent: hourRowEl });
+    setDOMValue(".feels-like", hour.feelsLike, { parent: hourRowEl });
+    setDOMValue(".wind", hour.windSpeed, { parent: hourRowEl });
+    setDOMValue(".precipitation", hour.precipitation, { parent: hourRowEl });
+
+    hourRowEl.querySelector(".weather-icon").src = getIconUrl(hour.iconCode);
+    hourEl.appendChild(hourRowEl);
+  }
+}

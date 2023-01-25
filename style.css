@@ -21,6 +21,10 @@ body {
   font-weight: 400;
 }
 
+.blur {
+  filter: blur(4px);
+}
+
 .headline {
   font-size: 36px;
   padding-top: 40px;
@@ -120,6 +124,35 @@ body {
   margin-top: 8px;
 }
 
+table {
+  width: 100%;
+  text-align: center;
+  border-spacing: 0;
+}
+
+table div.label {
+  font-size: 16px;
+}
+
+table div.label + div {
+  font-size: 14px;
+}
+
+.hour-row {
+  width: 100%;
+  height: 60px;
+  background-color: var(--secondary-blue-light);
+  font-size: 14px;
+}
+
+.hour-row:nth-child(2n) {
+  background-color: var(--secondary-blue-dark);
+}
+
+.hour-row > td {
+  padding: 4px 8px;
+}
+
 @media screen and (min-width: 768px) {
   .headline {
     font-size: 40px;
@@ -142,6 +175,26 @@ body {
     min-width: 140px;
     min-height: 140px;
   }
+
+  .daily-card__day {
+    font-size: 18px;
+  }
+
+  .daily-card__day + div > span {
+    font-size: 18px;
+  }
+
+  table div.label {
+    font-size: 18px;
+  }
+
+  table div.label + div {
+    font-size: 16px;
+  }
+
+  .hour-row > td {
+    padding: 6px 12px;
+  }
 }
 
 @media screen and (min-width: 1024px) {
@@ -149,5 +202,13 @@ body {
     flex: 1;
     min-width: 120px;
     min-height: 120px;
+  }
+
+  table div.label {
+    font-size: 20px;
+  }
+
+  table div.label + div {
+    font-size: 18px;
   }
 }
