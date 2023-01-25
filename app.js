@@ -1,5 +1,5 @@
 import fetchWeatherData from "./js/forecast";
-import { navigatorGeolocationPromise } from "./js/utils";
+import { navigatorGeolocationPromise, setDOMValue, getIconUrl } from "./js/utils";
 
 navigatorGeolocationPromise()
   .then((position) => {
@@ -25,13 +25,20 @@ function renderWeather({ current, daily, hourly }) {
 }
 
 function renderCurrentWeather(current) {
-  console.log("🚀 | file: app.js:19 | current", current);
+  const currentIconEl = document.querySelector("#weather-icon");
+  const { currentTemp, highFeelsLike, highTemp, iconCode, lowFeelsLike, lowTemp, precipitation, windSpeed } = current;
+
+  currentIconEl.src = getIconUrl(iconCode);
+
+  setDOMValue("#current-temp", currentTemp);
+  setDOMValue("#max-temp", highTemp);
+  setDOMValue("#feels-like-high", highFeelsLike);
+  setDOMValue("#min-temp", lowTemp);
+  setDOMValue("#feels-like-low", lowFeelsLike);
+  setDOMValue("#wind", windSpeed);
+  setDOMValue("#precipitation", precipitation);
 }
 
-function renderDailyWeather(daily) {
-  console.log("🚀 | file: app.js:23 | daily", daily);
-}
+function renderDailyWeather(daily) {}
 
-function renderHourlyWeather(hourly) {
-  console.log("🚀 | file: app.js:27 | hourly", hourly);
-}
+function renderHourlyWeather(hourly) {}
