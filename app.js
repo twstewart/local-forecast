@@ -1,9 +1,37 @@
 import fetchWeatherData from "./js/forecast";
+import { navigatorGeolocationPromise } from "./js/utils";
 
-const latLng = [10, 10];
-const tz = new Intl.DateTimeFormat().resolvedOptions().timeZone;
+navigatorGeolocationPromise()
+  .then((position) => {
+    const { latitude: lat, longitude: lng } = position.coords;
+    return { lat, lng, tz: new Intl.DateTimeFormat().resolvedOptions().timeZone };
+  })
+  .then(({ lat, lng, tz }) => {
+    return fetchWeatherData(lat, lng, tz);
+  })
+  .then(renderWeather)
+  .catch((err) => {
+    if (err.code === 1) {
+      alert("Application needs access to your current location to retrieve weather data.");
+    } else {
+      alert("An error occurred attempting to retrieve the weather. Please try again later...");
+    }
+  });
 
-const { current, daily, hourly } = await fetchWeatherData(latLng[0], latLng[1], tz);
-console.log("🚀 | file: app.js:7 | current", current);
-console.log("🚀 | file: app.js:7 | daily", daily);
-console.log("🚀 | file: app.js:7 | hourly", hourly);
+function renderWeather({ current, daily, hourly }) {
+  renderCurrentWeather(current);
+  renderDailyWeather(daily);
+  renderHourlyWeather(hourly);
+}
+
+function renderCurrentWeather(current) {
+  console.log("🚀 | file: app.js:19 | current", current);
+}
+
+function renderDailyWeather(daily) {
+  console.log("🚀 | file: app.js:23 | daily", daily);
+}
+
+function renderHourlyWeather(hourly) {
+  console.log("🚀 | file: app.js:27 | hourly", hourly);
+}
