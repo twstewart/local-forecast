@@ -26,6 +26,12 @@ export function hourFormatter(time, formatStyle = "numeric") {
   }).format(time);
 }
 
+export function percentFormatter(num, formatStyle = "percent") {
+  return new Intl.NumberFormat(undefined, {
+    style: formatStyle,
+  }).format(num);
+}
+
 export function calcAvg(...values) {
   return values.reduce((sum, val) => sum + val, 0) / values.length;
 }

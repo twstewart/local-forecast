@@ -1,3 +1,5 @@
+import { percentFormatter } from "./utils";
+
 export default async function fetchWeatherData(lat, lng, tz) {
   const endpoint = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&timeformat=unixtime&timezone=${tz}`;
 
@@ -43,6 +45,8 @@ function parseDailyWeather({ daily }) {
 }
 
 function parseHourlyWeather({ hourly, current_weather }) {
+  console.log(hourly);
+
   return hourly.time
     .map((t, i) => ({
       timestamp: t * 1000,
@@ -50,7 +54,7 @@ function parseHourlyWeather({ hourly, current_weather }) {
       temp: Math.round(hourly.temperature_2m[i]),
       feelsLike: Math.round(hourly.apparent_temperature[i]),
       windSpeed: Math.round(hourly.windspeed_10m[i]),
-      precipitation: Math.round(hourly.precipitation[i] * 100) / 100,
+      precipitation: percentFormatter(hourly.precipitation[i]),
     }))
     .filter(({ timestamp }) => timestamp >= current_weather.time * 1000);
 }

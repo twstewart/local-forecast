@@ -1,5 +1,13 @@
 import fetchWeatherData from "./js/forecast";
-import { calcAvg, dayFormatter, getIconUrl, hourFormatter, navigatorGeolocationPromise, setDOMValue } from "./js/utils";
+import {
+  calcAvg,
+  dayFormatter,
+  getIconUrl,
+  hourFormatter,
+  navigatorGeolocationPromise,
+  percentFormatter,
+  setDOMValue,
+} from "./js/utils";
 
 const currentIconEl = document.querySelector("#weather-icon");
 const dailyEl = document.querySelector("#daily");
@@ -44,7 +52,7 @@ function renderCurrentWeather(current) {
   setDOMValue("#min-temp", lowTemp);
   setDOMValue("#feels-like-low", lowFeelsLike);
   setDOMValue("#wind", windSpeed);
-  setDOMValue("#precipitation", precipitation);
+  setDOMValue("#precipitation", percentFormatter(precipitation));
 }
 
 function renderDailyWeather(daily) {
